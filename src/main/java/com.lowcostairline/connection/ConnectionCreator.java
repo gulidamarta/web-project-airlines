@@ -4,14 +4,23 @@ package com.lowcostairline.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 public class ConnectionCreator {
 
-    private ConnectionCreator() {
-    }
+    public Deque<Connection> createPool() {
+        LinkedList<Connection> pool = new LinkedList<>();
+        String poolSizeValue = "30";
+        int currentPoolSize = Integer.parseInt(poolSizeValue);
 
-    //private static final Logger LOGGER = Logger.getLogger(ConnectionCreator.class);
+        for (int listIndex = 0; listIndex < currentPoolSize; listIndex++) {
+            Connection connection = create();
+            pool.addLast(connection);
+        }
+        return pool;
+    }
 
     private static final String RESOURCE_BUNDLE_FILE_NAME = "database";
     private static final String USER_PROPERTY_KEY = "db.user";
@@ -31,7 +40,11 @@ public class ConnectionCreator {
 
     public static Connection create() {
 
-
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException exception) {
+            throw new ExceptionInInitializerError("Driver hasn't been registered. " + exception.getMessage());
+        }
         String connectionUrlValue = RESOURCE_BUNDLE.getString(URL_PROPERTY_KEY);
         String userValue = RESOURCE_BUNDLE.getString(USER_PROPERTY_KEY);
         String passwordValue = RESOURCE_BUNDLE.getString(PASSWORD_PROPERTY_KEY);
