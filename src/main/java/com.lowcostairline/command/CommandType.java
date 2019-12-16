@@ -1,17 +1,18 @@
 package com.lowcostairline.command;
 
-import com.lowcostairline.command.common.GetAircraftsCommand;
-import com.lowcostairline.command.common.GetPilotsCommand;
-import com.lowcostairline.command.common.RegisterCommand;
+
+import com.lowcostairline.command.common.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum CommandType {
-    COMMON_REGISTER(new RegisterCommand()),
+    GET_STEWARDS(new GetStewardsCommand()),
     GET_AIRCRAFTS(new GetAircraftsCommand()),
-    GET_PILOTS(new GetPilotsCommand());
-
+    GET_PILOTS(new GetPilotsCommand()),
+    COMMON_LOGIN(new LoginCommand()),
+    COMMON_LOGOUT(new LogoutCommand()),
+    COMMON_REGISTER(new RegisterCommand());
     private Command command;
 
     CommandType(Command command) {

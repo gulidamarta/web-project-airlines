@@ -1,22 +1,16 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: ziadelsarrih
+  Date: 12/16/19
+  Time: 23:17
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-
-<fmt:bundle basename="page_content">
-    <fmt:message key="menu.title" var="title"/>
-</fmt:bundle>
-<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
-    <title>${pageScope.title}</title>
+    <p class="error">${requestScope.message}</p>
 </head>
-<body class="page">
-<tag:userMenu/>
-<c:if test="${(sessionScope.user.role == 'client')}">
-    <tag:order/>
-</c:if>
+<body>
 
 </body>
 </html>
